@@ -6,6 +6,7 @@ use App\Models\User;
 use App\Models\Event;
 use App\Models\Coordinates;
 use App\Models\Category_event;
+use App\Models\Participation_event;
 
 use Carbon\Carbon;
 
@@ -25,14 +26,18 @@ class ProfileController extends BaseController
 
         $info_profile = User::find(Auth::id());
         $list_category_event = Category_event::all();
-        $list_event_user = Event::where('user_id','=',Auth::id());
-        $list_event_user_upcoming = Event::orderBy('date','ASC')->limit('10');
-        
+
+        $list_participation_event_user= Participation_event::where('user_id','=',Auth::id())->select('event_id')->get();
+
+        $dateAdd = Carbon::now()->addDays(14);
+        $list_participation_event_upcoming = Event::whereIn('id', $list_participation_event_user)->where("date",'<',$dateAdd)->orderBy('date','ASC')->get();
+        $list_event_user = Event::whereIn('id', $list_participation_event_user)->orderBy('date','ASC')->get();
+
         return view('profile', [
             'info_profile' => $info_profile,
             'list_category_event' => $list_category_event,
             'list_event_user' => $list_event_user,
-            'list_event_user_upcoming' => $list_event_user_upcoming
+            'list_participation_event_upcoming' => $list_participation_event_upcoming
         ]);
 
 

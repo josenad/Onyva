@@ -12,12 +12,6 @@
      .co-link{
       color:#6bbea3 !important;
      }
-
-     @media only screen and (max-width: 768px) {
-        #top {
-           display:none;
-        }
-     }
   </style>
    <body>
       <div class="content-wrapper">
@@ -142,8 +136,11 @@
          <div class="row">
             <div class="col-lg-3 col-sm-12 mt-n19 container pb-14 pb-md-16">
                <div class="card">
-                  <figure class="card-img-top hover-scale">
+                  <figure class="card-img-top overlay overlay1 hover-scale">
                      <a href="#"><span class="bg"></span> <img src="{{Storage::url($info_profile->image)}}" alt=""></a>
+                     <figcaption>
+                        <h5 class="from-top mb-0">Read More</h5>
+                     </figcaption>
                   </figure>
                   <div class="card-body">
                      <div class="post-header">
@@ -172,7 +169,7 @@
                               <div class="icon text-primary fs-24 me-4 mt-n1"> <i class="uil uil-lock-alt"></i> </div>
                            </div>
                            <div class="align-self-start justify-content-start">
-                              <a class="mb-1" href="#">Change Password</a>
+                              <a class="mb-1" href="{{url('/forgot-password')}}">Change Password</a>
                            </div>
                         </div>
                      </div>
@@ -183,7 +180,7 @@
             </div>
             <div class="col-lg-8 mt-n19 container pb-14 pb-md-16">
                <div class="card" style="padding: 2rem;">
-                  <ul class="nav nav-tabs nav-pills" style="justify-content: space-between;">
+                  <ul class="nav nav-tabs nav-pills" style="justify-content: space-around;">
                      <li class="nav-item"> 
                         <a class="active" data-bs-toggle="tab" href="#upcoming" style="font-size: 20px;">
                         <span>My Upcoming Events</span>
@@ -195,6 +192,11 @@
                         </a> 
                      </li>
                      <li class="nav-item"> 
+                        <a class="link-dark" data-bs-toggle="tab" href="#messagerie" style="font-size: 20px;" disabled>
+                        <span>Messagerie</span>
+                        </a> 
+                     </li>
+                     <li class="nav-item"> 
                      <a href="#top" class="btn btn-blue rounded-pill" style="width:100%;" data-bs-toggle="modal" data-bs-target="#modal-01">+ Create an Event</a>
                      </li>
                   </ul>
@@ -202,10 +204,11 @@
                   <div class="tab-content">
                      <div class="tab-pane fade show active" id="upcoming">
                         <div class="row mt-10">
+                           @foreach ($list_participation_event_upcoming as $event)
                            <div class="col-lg-4 col-md-6 col-sm-12 mb-6">
                               <div class="card">
                                  <figure class="card-img-top overlay overlay1 hover-scale">
-                                    <a href="#"><span class="bg"></span> <img src="{{asset('img/home/dj-1.jpg')}}" alt=""></a>
+                                    <a href="{{url('/event/'.$event->id.'/detail')}}"><span class="bg"></span> <img src="{{Storage::url($event->image)}}" alt=""></a>
                                     <figcaption>
                                        <h5 class="from-top mb-0">Read More</h5>
                                     </figcaption>
@@ -213,14 +216,14 @@
                                  <div class="card-body">
                                     <div class="post-header">
                                        <div class="post-category text-line">
-                                          <a href="#" class="hover" rel="category">Gastronomie</a>
+                                          <a href="#" class="hover" rel="category">{{$event->category->name}}</a>
                                        </div>
                                        <!-- /.post-category -->
-                                       <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="#">Ligula tristique quis risus</a></h2>
-                                       <p class="post-date mb-1"><span>14 Apr 2021</span></p>
-                                       <p class="post-location mb-1"><span>Location, City</span></p>
-                                       <p class="post-event-type mb-1"><span>Free</span></p>
-                                       <p class="post-organizateur mb-1"><span>Organizateur</span></p>
+                                       <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="{{url('/event/'.$event->id.'/detail')}}">{{$event->name}}</h2></a>
+                                       <p class="post-date mb-1"><span>{{$event->date}}</span></p>
+                                       <p class="post-location mb-1"><span>{{$event->coordinates->address}}</span></p>
+                                       <p class="post-event-type mb-1"><span>{{$event->type_event->name}}</span></p>
+                                       <p class="post-organizateur mb-1"><span>{{$event->user->name}}  {{$event->user->first_name}}</span></p>
                                     </div>
                                     <!-- /.post-header -->
                                  </div>
@@ -234,74 +237,51 @@
                                  </div>
                               </div>
                            </div>
-                           <div class="col-lg-4 col-md-6 col-sm-12 mb-6">
-                              <div class="card">
-                                 <figure class="card-img-top overlay overlay1 hover-scale">
-                                    <a href="#"><span class="bg"></span> <img src="{{asset('img/home/party1.png')}}" alt=""></a>
-                                    <figcaption>
-                                       <h5 class="from-top mb-0">Read More</h5>
-                                    </figcaption>
-                                 </figure>
-                                 <div class="card-body">
-                                    <div class="post-header">
-                                       <div class="post-category text-line">
-                                          <a href="#" class="hover" rel="category">Gastronomie</a>
-                                       </div>
-                                       <!-- /.post-category -->
-                                       <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="#">Ligula tristique quis risus</a></h2>
-                                       <p class="post-date mb-1"><span>14 Apr 2021</span></p>
-                                       <p class="post-location mb-1"><span>Location, City</span></p>
-                                       <p class="post-event-type mb-1"><span>Free</span></p>
-                                       <p class="post-organizateur mb-1"><span>Organizateur</span></p>
-                                    </div>
-                                    <!-- /.post-header -->
-                                 </div>
-                                 <!--/.card-body -->
-                                 <div class="card-footer">
-                                    <ul class="post-meta d-flex mb-0" style="list-style-type: none;">
-                                       <li class="post-followers">1.1<span>k followers</span></li>
-                                       <li class="co-link post-likes ms-auto"><a href="#">co-voiturage ></a></li>
-                                    </ul>
-                                    <!-- /.post-meta -->
-                                 </div>
-                              </div>
-                           </div>
-                           <div class="col-lg-4 col-md-6 col-sm-12 mb-6">
-                              <div class="card">
-                                 <figure class="card-img-top overlay overlay1 hover-scale">
-                                    <a href="#"><span class="bg"></span> <img src="{{asset('img/home/party-2.jpg')}}" alt=""></a>
-                                    <figcaption>
-                                       <h5 class="from-top mb-0">Read More</h5>
-                                    </figcaption>
-                                 </figure>
-                                 <div class="card-body">
-                                    <div class="post-header">
-                                       <div class="post-category text-line">
-                                          <a href="#" class="hover" rel="category">Gastronomie</a>
-                                       </div>
-                                       <!-- /.post-category -->
-                                       <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="#">Ligula tristique quis risus</a></h2>
-                                       <p class="post-date mb-1"><span>14 Apr 2021</span></p>
-                                       <p class="post-location mb-1"><span>Location, City</span></p>
-                                       <p class="post-event-type mb-1"><span>Free</span></p>
-                                       <p class="post-organizateur mb-1"><span>Organizateur</span></p>
-                                    </div>
-                                    <!-- /.post-header -->
-                                 </div>
-                                 <!--/.card-body -->
-                                 <div class="card-footer">
-                                    <ul class="post-meta d-flex mb-0" style="list-style-type: none;">
-                                       <li class="post-followers">1.1<span>k followers</span></li>
-                                       <li class="co-link post-likes ms-auto"><a href="#">co-voiturage ></a></li>
-                                    </ul>
-                                    <!-- /.post-meta -->
-                                 </div>
-                              </div>
-                           </div>
+                           @endforeach
+                           
                         </div>
                      </div>
                      <!--/.tab-pane -->
                      <div class="tab-pane fade" id="myEvents">
+                        <div class="row mt-10">
+                        @foreach ($list_event_user as $event)
+                           <div class="col-lg-4 col-md-6 col-sm-12 mb-6">
+                           <div class="card">
+                              <figure class="card-img-top overlay overlay1 hover-scale">
+                                 <a href="{{url('/event/'.$event->id.'/detail')}}"><span class="bg"></span> <img src="{{Storage::url($event->image)}}" alt=""></a>
+                                 <figcaption>
+                                    <h5 class="from-top mb-0">Read More</h5>
+                                 </figcaption>
+                              </figure>
+                              <div class="card-body">
+                                 <div class="post-header">
+                                    <div class="post-category text-line">
+                                       <a href="#" class="hover" rel="category">{{$event->category->name}}</a>
+                                    </div>
+                                    <!-- /.post-category -->
+                                    <h2 class="post-title h3 mt-1 mb-3"><a class="link-dark" href="{{url('/event/'.$event->id.'/detail')}}">{{$event->name}}</h2></a>
+                                    <p class="post-date mb-1"><span>{{$event->date}}</span></p>
+                                    <p class="post-location mb-1"><span>{{$event->coordinates->address}}</span></p>
+                                    <p class="post-event-type mb-1"><span>{{$event->type_event->name}}</span></p>
+                                    <p class="post-organizateur mb-1"><span>{{$event->user->name}}  {{$event->user->first_name}}</span></p>
+                                 </div>
+                                 <!-- /.post-header -->
+                              </div>
+                              <!--/.card-body -->
+                              <div class="card-footer">
+                                 <ul class="post-meta d-flex mb-0" style="list-style-type: none;">
+                                    <li class="post-followers">1.1<span>k followers</span></li>
+                                    <li class="co-link post-likes ms-auto"><a href="#">co-voiturage ></a></li>
+                                 </ul>
+                                 <!-- /.post-meta -->
+                              </div>
+                           </div>
+                        </div>
+                        @endforeach
+                        </div>
+                     </div>
+                     <!--/.tab-pane -->
+                     <div class="tab-pane fade" id="messagerie">
                         ...
                      </div>
                      <!--/.tab-pane -->

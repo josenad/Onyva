@@ -23,44 +23,23 @@ class Event extends Model
         'user_id'
     ];
 
-
-    /**
-     * Get the coordinate associated with the Event
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function coordinates(): HasOne
+    public function coordinates()
     {
-        return $this->hasOne('App\Coordinates', 'id','coordinates_event_id');
+        return $this->hasOne('App\Models\Coordinates', 'id','coordinates_event_id');
     }
 
-    /**
-     * Get the event associated with the Event
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function type_event(): HasOne
+    public function type_event()
     {
-        return $this->hasOne('App\Type_event', 'id', 'event_type_id');
+        return $this->hasOne('App\Models\Type_event', 'id', 'event_type_id');
     }
 
-    /**
-     * Get the user associated with the Event
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function user(): HasOne
+    public function user()
     {
-        return $this->hasOne('App\User', 'id', 'user_id');
+        return $this->hasOne('App\Models\User', 'id', 'user_id');
     }
 
-    /**
-     * Get the category associated with the Event
-     *
-     * @return \Illuminate\Database\Eloquent\Relations\HasOne
-     */
-    public function category(): HasOne
+    public function category()
     {
-        return $this->hasOne('App\Category_event', 'id', 'category_event_id');
+        return $this->hasOne('App\Models\Category_event', 'id', 'category_event_id');
     }
 }

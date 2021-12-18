@@ -9,6 +9,8 @@ class Type_event extends Model
 {
     use HasFactory;
 
+    protected $table = 'type_event';
+    
     protected $primaryKey = 'id';
 
     protected $fillable = [
